@@ -6,40 +6,41 @@
         xmlns:local="clr-namespace:LISTAJEDEN"      
         mc:Ignorable="d"        
         
-        Title="MainWindow" Height="350" Width="210">     
-        <Grid>      
-        <Grid.RowDefinitions>       
-                <RowDefinition Height="40*"/>   
-            <RowDefinition Height="60*"/>       
-            <RowDefinition Height="60*"/>       
-            <RowDefinition Height="60*"/>       
-            <RowDefinition Height="60*"/>       
-        </Grid.RowDefinitions>      
-        <Grid.ColumnDefinitions>        
-            <ColumnDefinition/>     
-            <ColumnDefinition/>     
-            <ColumnDefinition/>     
-            <ColumnDefinition/>     
-            
-        </Grid.ColumnDefinitions>       
-        <TextBox Grid.Column="0"   Grid.ColumnSpan="2" Grid.Row="0" Margin="3,3,3,3"  TextAlignment="Right" Name="txtDisplay" TextChanged="txtDisplay_TextChanged"  />      
-        <TextBox Grid.Column="2" Grid.Row="0" TextAlignment="Right" Name="txtDisplayMemory"></TextBox>      
-        <Button Grid.Row="0" Grid.Column="3" Content="C"  Click="EraseButton_Click" Margin="0,0,0,87" Grid.RowSpan="2"/>     
-        <Button Grid.Row="4" Grid.Column="1" Content="0" Click="NumberButton_Click" />          
-        <Button Grid.Row="1" Grid.Column="0" Content="1"  Click="NumberButton_Click" />     
-        <Button Grid.Row="1" Grid.Column="0" Content="4"  Click="NumberButton_Click" Margin="0,87,0,88" Grid.RowSpan="3" />     
-        <Button Grid.Row="3" Grid.Column="0" Content="7"  Click="NumberButton_Click" Margin="0,0,0,87" Grid.RowSpan="2" />      
-        <Button Grid.Row="1" Grid.Column="1" Content="2"  Click="NumberButton_Click" />     
-        <Button Grid.Row="1" Grid.Column="1" Content="5"  Click="NumberButton_Click" Margin="0,87,0,88" Grid.RowSpan="3" />     
-        <Button Grid.Row="3" Grid.Column="1" Content="8"  Click="NumberButton_Click" Margin="0,0,0,87" Grid.RowSpan="2" />      
-        <Button Grid.Row="1" Grid.Column="2" Content="3"  Click="NumberButton_Click" />     
-        <Button Grid.Row="1" Grid.Column="2" Content="6"  Click="NumberButton_Click" Margin="0,87,0,88" Grid.RowSpan="3" />     
-        <Button Grid.Row="3" Grid.Column="2" Content="9"  Click="NumberButton_Click" Margin="0,0,0,87" Grid.RowSpan="2" />      
-        <Button Grid.Row="1" Grid.Column="3" Content="DEL" />       
-        <Button Grid.Row="1" Grid.Column="3" Content="*" Click="OperationButton_Click" Margin="0,87,0,88" Grid.RowSpan="3" />       
-        <Button Grid.Row="3" Grid.Column="3" Content="/" Click="OperationButton_Click" Margin="0,0,0,87" Grid.RowSpan="2" />        
-        <Button Grid.Row="4" Grid.Column="0" Content="+" Click="OperationButton_Click" />       
-        <Button Grid.Row="4" Grid.Column="2" Content="-" Click="OperationButton_Click" />       
-        <Button Grid.Row="4" Grid.Column="3" Content="=" Click="ResultButton_Click" />      
-    </Grid>     
-</Window>       
+        Title="MainWindow" Height="400" Width="280">
+    <Grid Background="#FF99B2BD">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70*"/>
+            <RowDefinition Height="73*"/>
+            <RowDefinition Height="73*"/>
+            <RowDefinition Height="73*"/>
+            <RowDefinition Height="73*"/>
+
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBox Grid.Column="0"   Grid.ColumnSpan="2" Grid.Row="0" Margin="3,3,3,3"  TextAlignment="Right" Name="txtDisplay" TextChanged="txtDisplay_TextChanged" Background="#FFCECECE"  />
+        <TextBox Grid.Column="2" Grid.Row="0" TextAlignment="Right" Name="txtDisplayMemory" Background="#FFCECECE"></TextBox>
+        <Button Grid.Row="0" Grid.Column="3" Content="C"  Click="EraseButton_Click" Margin="0,0,0,87" Grid.RowSpan="2" Background="#FF7DF6FF"/>
+        <Button Grid.Row="4" Grid.Column="1" Content="0" Click="NumberButton_Click" Background="#FF99B2BD"/>
+        <Button Grid.Row="1" Grid.Column="0" Content="1"  Click="NumberButton_Click" Background="#FF99B2BD"/>
+        <Button Grid.Row="1" Grid.Column="0" Content="4"  Click="NumberButton_Click" Margin="0,87,0,88" Grid.RowSpan="3" Background="#FF99B2BD"/>
+        <Button Grid.Row="3" Grid.Column="0" Content="7"  Click="NumberButton_Click" Margin="0,0,0,87" Grid.RowSpan="2" Background="#FF99B2BD"/>
+        <Button Grid.Row="1" Grid.Column="1" Content="2"  Click="NumberButton_Click" Background="#FF99B2BD"/>
+        <Button Grid.Row="1" Grid.Column="1" Content="5"  Click="NumberButton_Click" Margin="0,87,0,88" Grid.RowSpan="3" Background="#FF99B2BD"/>
+        <Button Grid.Row="3" Grid.Column="1" Content="8"  Click="NumberButton_Click" Margin="0,0,0,87" Grid.RowSpan="2" Background="#FF99B2BD"/>
+        <Button Grid.Row="1" Grid.Column="2" Content="3"  Click="NumberButton_Click" Background="#FF99B2BD"/>
+        <Button Grid.Row="1" Grid.Column="2" Content="6"  Click="NumberButton_Click" Margin="0,87,0,88" Grid.RowSpan="3" Background="#FF99B2BD"/>
+        <Button Grid.Row="3" Grid.Column="2" Content="9"  Click="NumberButton_Click" Margin="0,0,0,87" Grid.RowSpan="2" Background="#FF99B2BD"/>
+        <Button Grid.Row="1" Grid.Column="3" Content="DEL" Background="#FF707971"/>
+        <Button Grid.Row="1" Grid.Column="3" Content="*" Click="OperationButton_Click" Margin="0,87,0,88" Grid.RowSpan="3" Background="#FF707971"/>
+        <Button Grid.Row="3" Grid.Column="3" Content="/" Click="OperationButton_Click" Margin="0,0,0,87" Grid.RowSpan="2" Background="#FF707971"/>
+        <Button Grid.Row="4" Grid.Column="0" Content="+" Click="OperationButton_Click" Background="#FF707971"/>
+        <Button Grid.Row="4" Grid.Column="2" Content="-" Click="OperationButton_Click" Background="#FF707971"/>
+        <Button Grid.Row="4" Grid.Column="3" Content="=" Click="ResultButton_Click" Background="#FF707971"/>
+    </Grid>
+</Window>
