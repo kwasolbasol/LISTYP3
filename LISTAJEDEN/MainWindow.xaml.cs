@@ -28,12 +28,13 @@ namespace LISTAJEDEN
 public partial class MainWindow : Window
 {
     private Operation m_eLastOperationSelected = Operation.none;
-    public MainWindow()
-    {
-        InitializeComponent();
-
-
-    }
+      private KolkoKrzyzyk kolkoKrzyzykWindow;
+      public MainWindow()
+        {
+            InitializeComponent();
+            kolkoKrzyzykWindow = new KolkoKrzyzyk();
+            kolkoKrzyzykWindow.Show();
+        }
 
     private void NumberButton_Click(object oSender, RoutedEventArgs eRoutedEventArgs)
     {

@@ -1,101 +1,111 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using System.Runtime.CompilerServices;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
+using System.Windows;
+using System;
 namespace LISTAJEDEN
 {
-    /// <summary>
-    /// Interaction logic for KolkoKrzyzyk.xaml
-    /// </summary>
-    public partial class KolkoKrzyzyk : Window
+    public partial class KolkoKrzyzyk : Window, INotifyPropertyChanged
     {
+        private GameModel gameModel;
         public KolkoKrzyzyk()
         {
             InitializeComponent();
+            gameModel = new GameModel();
+            DataContext = gameModel;
         }
-        short player = 1;
-        int[] t = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        bool endgame = false;
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (player == 1 && ((Button)sender).IsEnabled)
+            var button = (Button)sender;
+            int index = Convert.ToInt32(button.Tag) - 1;
+
+            if (gameModel.IsValidMove(index))
             {
-                ((Button)sender).Content = "X";
-                ((Button)sender).IsEnabled = false;
-                t[Convert.ToInt32(((Button)sender).Tag) - 1] = 1;
-                player = 2;
-            }
-            else if (player == 2 && ((Button)sender).IsEnabled)
-            {
-                ((Button)sender).Content = "O";
-                ((Button)sender).IsEnabled = false;
-                t[Convert.ToInt32(((Button)sender).Tag) - 1] = -1;
-                player = 1;
-            }
-            if (CheckWinner(1))
-            {
-                MessageBox.Show("Gracz X wygrał!");
-                endgame = true;
-            }
-            if (CheckWinner(-1))
-            {
-                MessageBox.Show("Gracz O Wygrał!");
-                endgame = true;
-            }
-            if (t[0] != 0 && t[1] != 0 && t[2] != 0 && t[3] != 0 && t[4] != 0 && t[5] != 0 && t[6] != 0 &&
-                t[7] != 0 && t[8] != 0 && endgame == false)
-            {
-                MessageBox.Show("Remis!");
-                endgame = true;
-            }
-            if (endgame)
-            {
-                button1.Content = "";
-                button1.IsEnabled = true;
-                button2.Content = "";
-                button2.IsEnabled = true;
-                button3.Content = "";
-                button3.IsEnabled = true;
-                button4.Content = "";
-                button4.IsEnabled = true;
-                button5.Content = "";
-                button5.IsEnabled = true;
-                button6.Content = "";
-                button6.IsEnabled = true;
-                button7.Content = "";
-                button7.IsEnabled = true;
-                button8.Content = "";
-                button8.IsEnabled = true;
-                button9.Content = "";
-                button9.IsEnabled = true;
-                Array.Clear(t, 0, t.Length);
-                endgame = false;
-                player = 1;
+                gameModel.MakeMove(index);
+                gameModel.SwitchPlayer();
+                button.Content = gameModel.CurrentPlayerSymbol;
+
+                if (gameModel.CheckWinner())
+                {
+                    MessageBox.Show($"Gracz {gameModel.CurrentPlayerSymbol} wygrał!");
+                    ResetGame();
+                }
+                else if (gameModel.IsBoardFull())
+                {
+                    MessageBox.Show("Remis!");
+                    ResetGame();
+                }
             }
         }
-        private bool CheckWinner(int p)
+        private void ResetGame()
         {
-            if ((t[0] == p && t[1] == p && t[2] == p) ||
-                (t[3] == p && t[4] == p && t[5] == p) ||
-                (t[6] == p && t[7] == p && t[8] == p) ||
-                (t[0] == p && t[3] == p && t[6] == p) ||
-                (t[1] == p && t[4] == p && t[7] == p) ||
-                (t[2] == p && t[5] == p && t[8] == p) ||
-                (t[0] == p && t[4] == p && t[8] == p) ||
-                (t[2] == p && t[4] == p && t[6] == p))
+            gameModel.ResetGame();
+            foreach (var button in ((Grid)Content).Children.OfType<Button>())
+            {
+                button.Content = null;
+            }
+        }
+    }
+    public class GameModel : INotifyPropertyChanged
+    {
+        private int[] board = new int[9];
+        private bool endgame = false;
+        private short currentPlayer = 1;
+        public GameModel()
+        {
+            ResetGame();
+        }
+        public string CurrentPlayerSymbol => currentPlayer == 1 ? "X" : "O";
+        public bool IsBoardFull() => board.All(cell => cell != 0);
+        public bool CheckWinner()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (AreEqual(board[i * 3], board[i * 3 + 1], board[i * 3 + 2]))
+                    return true;
+                if (AreEqual(board[i], board[i + 3], board[i + 6]))
+                    return true;
+            }
+            if (AreEqual(board[0], board[4], board[8]) || AreEqual(board[2], board[4], board[6]))
                 return true;
-            else
-                return false;
+
+            return false;
+        }
+        private bool AreEqual(int a, int b, int c)
+        {
+            return a != 0 && a == b && b == c;
+        }
+        public bool IsValidMove(int index) => !endgame && board[index] == 0;
+
+        public void MakeMove(int index)
+        {
+            board[index] = currentPlayer;
+            OnPropertyChanged(nameof(Board));
+        }
+        public void SwitchPlayer()
+        {
+            currentPlayer = (short)(currentPlayer == 1 ? 2 : 1);
+            OnPropertyChanged(nameof(CurrentPlayerSymbol));
+        }
+        public void ResetGame()
+        {
+            Array.Clear(board, 0, board.Length);
+            endgame = false;
+            currentPlayer = 1;
+            OnPropertyChanged(nameof(Board));
+            OnPropertyChanged(nameof(CurrentPlayerSymbol));
+        }
+        public int[] Board => board;
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
