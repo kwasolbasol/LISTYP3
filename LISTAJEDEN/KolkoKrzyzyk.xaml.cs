@@ -4,11 +4,29 @@ using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 using System.Windows;
 using System;
+using System.Windows.Documents;
 namespace LISTAJEDEN
 {
     public partial class KolkoKrzyzyk : Window, INotifyPropertyChanged
     {
         private GameModel gameModel;
+        public string[] CellValues => board.Select(value => value == 1 ? "X" : (value == 2 ? "O" : "")).ToArray();
+        private int[] board = new int[9];
+
+        public int[] Board
+        {
+            get { return board; }
+            set
+            {
+                if (value != board)
+                {
+                    board = value;
+                    OnPropertyChanged(nameof(Board));
+                }
+            }
+        }
+
+
         public KolkoKrzyzyk()
         {
             InitializeComponent();
@@ -43,6 +61,12 @@ namespace LISTAJEDEN
                 }
             }
         }
+        public void MakeMove(int index)
+        {
+            board[index] = gameModel.currentPlayer;
+            OnPropertyChanged(nameof(CellValues));
+            gameModel.SwitchPlayer();
+        }
         private void ResetGame()
         {
             gameModel.ResetGame();
@@ -56,7 +80,7 @@ namespace LISTAJEDEN
     {
         private int[] board = new int[9];
         private bool endgame = false;
-        private short currentPlayer = 1;
+        public short currentPlayer = 1;
         public GameModel()
         {
             ResetGame();
