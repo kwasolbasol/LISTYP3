@@ -52,7 +52,7 @@ namespace LISTAJEDEN
             m_eLastOperationSelected = Operation.none;
         }
         private void OperationButton_Click(object oSender, RoutedEventArgs eRoutedEventArgs)
-        {           
+        {
             {
                 ResultButton_Click(this, eRoutedEventArgs);
             }
