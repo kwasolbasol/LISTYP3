@@ -1,25 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Media;
-using static Statki.MainWindow;
+﻿ using System;
+ using System.Collections.Generic;
+ using System.Diagnostics;
+ using System.Linq;
+ using System.Windows;
+ using System.Windows.Controls;
+ using System.Windows.Data;
+ using System.Windows.Media;
+ using static Statki.MainWindow;
 
 namespace Statki
-{
-    public partial class Gracz2 : Window
-    {
-        public Gracz2()
+ {
+     public partial class Gracz2 : Window
+     {
+         public Gracz2()
         {
             InitializeComponent();
             CreateButtons();
             Loaded += MyWindow_Loaded;
         }
 
-        private void MyWindow_Loaded(object sender, RoutedEventArgs e)
+         private void MyWindow_Loaded(object sender, RoutedEventArgs e)
         {
             foreach (var button in gridMain.Children.OfType<Button>().ToList())
             {
@@ -29,10 +29,10 @@ namespace Statki
                     button.Content = "";
             }
         }
-        int numOfShips = 20;
-        List<String> hitBoxes = new List<String>();
+         int numOfShips = 20;
+         List<String> hitBoxes = new List<String>();
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (MainWindow.turn == 2)
             {
@@ -65,7 +65,7 @@ namespace Statki
                 ((Gra)this.DataContext).Player1content = "TY STRZELASZ";
             }
         }
-        private void CreateButtons()
+         private void CreateButtons()
         {
 
             YesNoToBooleanConverter converter = new YesNoToBooleanConverter();
@@ -105,7 +105,7 @@ namespace Statki
                 }
             }
         }
-        void Restart()
+         void Restart()
         {
             var response = MessageBox.Show("Czy chcesz zagrać jeszcze raz?", "Wychodzenie...", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
             if (response == MessageBoxResult.No)
@@ -118,7 +118,7 @@ namespace Statki
                 Application.Current.Shutdown();
             }
         }
-        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             if (automaticClose == false)
             {
@@ -138,5 +138,5 @@ namespace Statki
                 MainWindow.automaticClose = false;
             }
         }
-    }
-}
+     }
+  }

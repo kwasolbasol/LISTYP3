@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿ using System;
+ using System.Collections.ObjectModel;
+ using System.ComponentModel;
 
-namespace Statki
-{
-    public class Gra : INotifyPropertyChanged
+ namespace Statki
+ {
+     public class Gra : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         ObservableCollection<int> _FieldP1 = new ObservableCollection<int> { };
@@ -81,4 +81,4 @@ namespace Statki
             }
         }
     }
-}
+ }
